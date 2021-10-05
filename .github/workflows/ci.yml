@@ -1,3 +1,6 @@
+name: vagrant-up
+on: [push]
+
 jobs:
   vagrant-up:
     runs-on: macos-10.15

@@ -17,7 +17,7 @@ jobs:
             ${{ runner.os }}-vagrant-
 
       - name: Show Vagrant version
-        run: vagrant --version
+        run: vagrant --versiondsadasdsa
 
       - name: Run vagrant up
         run: vagrant up

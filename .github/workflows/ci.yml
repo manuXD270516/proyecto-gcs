@@ -10,6 +10,7 @@ jobs:
 
   setup_enviornment:
     runs-on: ubuntu-latest
+    container: node:latest
     services:  
       db_postgresql:
         image: postgres:latest

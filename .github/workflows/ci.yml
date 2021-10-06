@@ -30,7 +30,7 @@ jobs:
 
     - name: Run Docker container (postgresql database)
       run: |
-        winpty docker run -t -e POSTGRES_PASSWORD=gcs -e POSTGRES_USER=gcs -e POSTGRES_DB=gcs -p 127.0.0.1:5432:5432 postgres:latest
+        docker run -t -e POSTGRES_PASSWORD=gcs -e POSTGRES_USER=gcs -e POSTGRES_DB=gcs -p 127.0.0.1:5432:5432 postgres:latest
 
     - name: Run tests
       run: sbt test

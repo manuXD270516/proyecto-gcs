@@ -16,7 +16,7 @@ jobs:
         env:
           POSTGRES_PASSWORD: gcs #${{ secrets.POSTGRES_PASSWORD }}
           POSTGRES_USER: gcs
-          #POSTGRES_PORT: 5432
+          POSTGRES_PORT: 5432
           POSTGRES_DB: gcs
         ports:
           - 5432/tcp

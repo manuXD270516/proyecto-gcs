@@ -37,16 +37,17 @@ jobs:
         POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
         PG_IMAGE_NAME: ${{ secrets.PG_IMAGE_NAME }}
 
-  build_app:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Compile application
-        run: sbt compile
+    - name: Compile application
+      run: sbt compile
     
-      - name: Run units tests
-        run: sbt test
+    - name: Run units tests
+      run: sbt test
    
-      - name: Run integrations tests
-        run: |
-          sbt it:test
+    - name: Run integrations tests
+      run: |
+        sbt 'project gcsAppIT' test
+  #build_app:
+  #  runs-on: ubuntu-latest
+  #  steps:
+     
    

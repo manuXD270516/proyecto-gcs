@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     services:  
       db_postgresql:
-        image: postgres:latest
+        image: manudocker0112/docker-push-repo01
         ports:
           - 5432:5432
         env:

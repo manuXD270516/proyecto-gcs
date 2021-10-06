@@ -37,6 +37,8 @@ jobs:
     - name: Run Docker container (postgresql database)
       run: |
         docker run -t -d -e POSTGRES_PASSWORD=$POSTGRES_PASSWORD -e POSTGRES_USER=$POSTGRES_USER -e POSTGRES_DB=$POSTGRES_DB -p 5432:5432 postgres:latest
+      run: |
+        - sed -i 's/"localhost:9000"/"localhost:19001","localhost"/g' gcs-app/conf/application.conf
       env:  
         POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
         POSTGRES_USER: ${{ secrets.POSTGRES_USER }}

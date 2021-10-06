@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     services:  
       db_postgresql:
-        image: pogtgres:latest
+        image: postgres:latest
         env:
           POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
           POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
@@ -38,7 +38,7 @@ jobs:
   
     - name: Run Docker container (postgresql database)
       run: |
-        docker run -t -d -e POSTGRES_PASSWORD=$POSTGRES_PASSWORD -e POSTGRES_USER=$POSTGRES_USER -e POSTGRES_DB=$POSTGRES_DB -p 127.0.0.1:5432:5432 pogtgres:latest
+        docker run -t -d -e POSTGRES_PASSWORD=$POSTGRES_PASSWORD -e POSTGRES_USER=$POSTGRES_USER -e POSTGRES_DB=$POSTGRES_DB -p 127.0.0.1:5432:5432 postgres:latest
         
       env:  
         POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}

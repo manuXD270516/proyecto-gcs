@@ -47,7 +47,7 @@ jobs:
         sudo apt-get update
         sudo apt-get install --yes postgresql-client
     - name: Query database
-      run: psql -h localhost -d gcs -U gcs -c 'SELECT 1;'
+      run: psql -h localhost -d gcs -U gcs gcs -c 'SELECT 1;'
       env:  
         POSTGRES_PASSWORD: gcs #${{ secrets.POSTGRES_PASSWORD }}
         POSTGRES_USER: ${{ secrets.POSTGRES_USER }}

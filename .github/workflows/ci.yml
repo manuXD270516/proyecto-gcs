@@ -10,17 +10,16 @@ jobs:
 
   setup_enviornment:
     runs-on: ubuntu-latest
-    container: node:latest
     services:  
       db_postgresql:
-        image: postgres:latest
+        image: postgres:10.8
         env:
           POSTGRES_PASSWORD: gcs #${{ secrets.POSTGRES_PASSWORD }}
           POSTGRES_USER: gcs
-          POSTGRES_PORT: 5432
+          #POSTGRES_PORT: 5432
           POSTGRES_DB: gcs
         ports:
-          - 5432:5432
+          - 5432/tcp
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -45,15 +44,17 @@ jobs:
     #    docker run -t -d -e POSTGRES_PASSWORD=$POSTGRES_PASSWORD -e POSTGRES_USER=$POSTGRES_USER -e POSTGRES_DB=$POSTGRES_DB -p 127.0.0.1:5432:5432 #postgres:latest
     - name: Install PostgreSQL client
       run: |
-        apt-get update
-        apt-get install --yes postgresql-client
+        sudo apt-get update
+        sudo apt-get install --yes postgresql-client
     - name: Query database
-      run: psql -h localhost:5432 -d gcs -U gcs gcs -c 'SELECT 1;'
+      run: psql -h localhost -d gcs -U gcs gcs -c 'SELECT 1;'
       env:  
+        POSTGRES_HOST: localhost
         PGPASSWORD: gcs #${{ secrets.POSTGRES_PASSWORD }}
         POSTGRES_USER: gcs
         POSTGRES_DB: gcs
         PG_IMAGE_NAME: ${{ secrets.PG_IMAGE_NAME }}
+        POSTGRES_PORT: ${{ job.services.postgres.ports[5432] }}
     
     #- name: Install PostgreSQL client
     #  run: |

@@ -43,17 +43,10 @@ jobs:
         POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
         PG_IMAGE_NAME: ${{ secrets.PG_IMAGE_NAME }}
     
-    - name: Install PostgreSQL client
-      run: |
-        apt-get update
-        apt-get install --yes postgresql-client
-
-    # queries database with postgres client
-    - name: Query database
-      run: psql -h postgres -d gcs -U gcs -X gcs -c 'SELECT 1;'
-
-
-
+    #- name: Install PostgreSQL client
+    #  run: |
+    #    apt-get update
+    #    apt-get install --yes postgresql-client
     - name: Compile application
       run: sbt compile
     

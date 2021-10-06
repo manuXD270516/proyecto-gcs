@@ -45,8 +45,8 @@ jobs:
     #    docker run -t -d -e POSTGRES_PASSWORD=$POSTGRES_PASSWORD -e POSTGRES_USER=$POSTGRES_USER -e POSTGRES_DB=$POSTGRES_DB -p 127.0.0.1:5432:5432 #postgres:latest
     - name: Install PostgreSQL client
       run: |
-        sudo apt-get update
-        sudo apt-get install --yes postgresql-client
+        apt-get update
+        apt-get install --yes postgresql-client
     - name: Query database
       run: psql -h localhost -d gcs -U gcs gcs -c 'SELECT 1;'
       env:  

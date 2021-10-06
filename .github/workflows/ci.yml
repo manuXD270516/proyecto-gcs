@@ -16,12 +16,15 @@ jobs:
         env:
           POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
           POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+          POSTGRES_PORT: 5432
           POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
-        #options:
-        #  --health-cmd pg_isready
-        #  --health-interval 10s
-        #  --health-timeout 5s
-        #  --health-retries 5
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
         #volumes:
         #  - ds:/sa
     steps:
@@ -36,10 +39,16 @@ jobs:
       run: | 
         sed -i 's/"localhost:9000"/"localhost:19001","localhost"/g' gcs-app/conf/application.conf
   
-    - name: Run Docker container (postgresql database)
+    #- name: Run Docker container (postgresql database)
+    #  run: |
+    #    docker run -t -d -e POSTGRES_PASSWORD=$POSTGRES_PASSWORD -e POSTGRES_USER=$POSTGRES_USER -e POSTGRES_DB=$POSTGRES_DB -p 127.0.0.1:5432:5432 #postgres:latest
+    - name: Install PostgreSQL client
       run: |
-        docker run -t -d -e POSTGRES_PASSWORD=$POSTGRES_PASSWORD -e POSTGRES_USER=$POSTGRES_USER -e POSTGRES_DB=$POSTGRES_DB -p 127.0.0.1:5432:5432 postgres:latest
-        
+        apt-get update
+        apt-get install --yes postgresql-client
+    - name: Query database
+      run: psql -h postgres -d gcs -U gcs -c 'SELECT 1;'
+    
       env:  
         POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
         POSTGRES_USER: ${{ secrets.POSTGRES_USER }}

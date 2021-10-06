@@ -48,5 +48,5 @@ jobs:
    
       - name: Run integrations tests
         run: |
-          sbt 'project gcsAppIT' test
+          sbt it:test
    

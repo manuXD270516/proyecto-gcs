@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     services:  
       db_postgresql:
-        image: postgres:latest
+        image: ${{ secrets.PG_IMAGE_NAME }}
         ports:
           - '5432'
         env:
@@ -30,7 +30,22 @@ jobs:
 
     - name: Run Docker container (postgresql database)
       run: |
-        docker run -t -d -e POSTGRES_PASSWORD=gcs -e POSTGRES_USER=gcs -e POSTGRES_DB=gcs -p 127.0.0.1:5432:5432 postgres:latest
+        docker run -t -d -e POSTGRES_PASSWORD=$POSTGRES_PASSWORD -e POSTGRES_USER=$POSTGRES_USER -e POSTGRES_DB=$POSTGRES_DB -p 127.0.0.1:5432:5432 postgres:latest
+      env:  
+        POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+        POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+        POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+        PG_IMAGE_NAME: ${{ secrets.PG_IMAGE_NAME }}
 
-    - name: Run tests
-      run: sbt test
+  build_app:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Compile application
+        run: sbt compile
+    
+      - name: Run units tests
+        run: sbt test
+   
+      - name: Run integrations tests
+        run: sbt "project gcsAppIT" test
+   

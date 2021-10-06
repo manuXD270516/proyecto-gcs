@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     services:  
       db_postgresql:
-        image: manudocker0112/docker-push-repo01
+        image: manudocker0112/pg_custom:latest
         env:
           POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
           POSTGRES_USER: ${{ secrets.POSTGRES_USER }}

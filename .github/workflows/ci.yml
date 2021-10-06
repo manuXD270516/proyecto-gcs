@@ -30,7 +30,7 @@ jobs:
 
     - name: Run Docker container (postgresql database)
       run: |
-        docker run db_postgresql
+        docker run postgres:latest
 
     - name: Run tests
       run: sbt test

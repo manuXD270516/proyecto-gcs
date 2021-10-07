@@ -76,7 +76,7 @@ jobs:
         sbt rpm:packageBin
         
     - name: Create identity azure file for web server
-      run: echo "hello world" >> /home/runner/.ssh/id_azure
+      run: echo "hello world" | tee /home/runner/.ssh/id_azure
     - name: Copy package to server test
       run: |
         scp -i ~/.ssh/id_azure /home/runner/work/proyecto-gcs/proyecto-gcs/gcs-app/target/rpm/RPMS/noarch/gcs-app-2.8.x-1.noarch.rpm azureuser@52.170.70.127:/home/azureuser    

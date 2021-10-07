@@ -74,17 +74,24 @@ jobs:
     - name: RPM Build of application gcs-app
       run: |
         sbt rpm:packageBin
-     
-        
-    - name: copy file via ssh password
-      uses: appleboy/scp-action@master
-      with:
-        host: 52.170.70.127
-        username: azureuser
-        key: ${{ secrets.KEY_AZURE }}
-        port: 22
-        source: "deploy.tar"
-        target: "destination/folder"
+      
+    - name: Install SSH Key
+      uses: shimataro/ssh-key-action@v2
+      env:
+        name: dev
+      with:  
+        key: ${{ secrets.SECRET_KEY_01 }} 
+        known_hosts: 'just-a-placeholder-so-we-dont-get-errors'
+
+    # - name: copy file via ssh password
+    #   uses: appleboy/scp-action@master
+    #   with:
+    #     host: 52.170.70.127
+    #     username: azureuser
+    #     key: ${{ secrets.KEY_AZURE }}
+    #     port: 22
+    #     source: "/home/runner/work/proyecto-gcs/proyecto-gcs/gcs-app/target/rpm/RPMS/noarch/gcs-app-2.8.x-1.noarch.rpm"
+    #     target: "/home/azureuser"
         
         
     #- name: Create identity azure file for web server

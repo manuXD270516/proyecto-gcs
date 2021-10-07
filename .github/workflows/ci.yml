@@ -77,15 +77,11 @@ jobs:
       
     - name: Install SSH Key
       uses: shimataro/ssh-key-action@v2
-      env:
-        name: dev
       with:  
         key: ${{ secrets.SECRET_KEY_01 }} 
         known_hosts: 'just-a-placeholder-so-we-dont-get-errors'
 
     - name: Adding Known Hosts
-      env:
-        name: dev
       run: ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
 
     - name: copy file via ssh password
@@ -96,10 +92,10 @@ jobs:
         key: ${{ secrets.SECRET_KEY_01 }}
         port: 22
         source: /home/runner/work/proyecto-gcs/proyecto-gcs/gcs-app/target/rpm/RPMS/noarch/gcs-app-2.8.x-1.noarch.rpm
-        target: "/home/azureuser"
+        target: /home/azureuser
 
         
-        
+
         
     #- name: Create identity azure file for web server
     #  run: echo "hello world" >> /home/runner/.ssh/id_azure

@@ -110,7 +110,7 @@ jobs:
         script: |
           sudo systemctl stop gcs-app
           sudo rpm -e gcs-app
-          sudo rpm -i gcs-app-2.8.x-1.noarch
+          sudo rpm -i gcs-app-2.8.x-1.noarch.rpm
           sudo chown -R gcs-app /usr/share/gcs-app/
           sudo chgrp -R gcs-app /usr/share/gcs-app/
           sudo sed -i 's/localhost/10.0.0.5/g' /etc/gcs-app/application.conf

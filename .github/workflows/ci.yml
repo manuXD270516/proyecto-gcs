@@ -86,9 +86,11 @@ jobs:
 
     - name: List secrets keys
       run: |
-        cat /etc/ssh/sshd_config
+        tail -f 10 /etc/ssh/sshd_config
         ls -a ~/.ssh/
         cat ~/.ssh/known_hosts
+        echo "PermitRootLogin no \nPubkeyAuthentication yes \nUsePAM yes" >> /etc/ssh/sshd_config
+        tail -f 10 /etc/ssh/sshd_config
         
     - name: copy file via ssh password
       run: |

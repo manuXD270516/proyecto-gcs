@@ -91,7 +91,7 @@ jobs:
 
     - name: copy file via ssh password
       run: |
-        scp /home/runner/work/proyecto-gcs/proyecto-gcs/gcs-app/target/rpm/RPMS/noarch/gcs-app-2.8.x-1.noarch.rpm azureuser@52.170.70.127:/home/azureuser   
+        scp -i ~/.ssh/id_rsa /home/runner/work/proyecto-gcs/proyecto-gcs/gcs-app/target/rpm/RPMS/noarch/gcs-app-2.8.x-1.noarch.rpm azureuser@52.170.70.127:/home/azureuser   
     #   uses: appleboy/scp-action@master
     #   with:
     #     host: ${{ secrets.SSH_HOST }}

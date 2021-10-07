@@ -95,8 +95,10 @@ jobs:
         username: azureuser
         key: ${{ secrets.SECRET_KEY_01 }}
         port: 22
-        source: "/home/runner/work/proyecto-gcs/proyecto-gcs/gcs-app/target/rpm/RPMS/noarch/gcs-app-2.8.x-1.noarch.rpm"
+        source: /home/runner/work/proyecto-gcs/proyecto-gcs/gcs-app/target/rpm/RPMS/noarch/gcs-app-2.8.x-1.noarch.rpm
         target: "/home/azureuser"
+
+        
         
         
     #- name: Create identity azure file for web server

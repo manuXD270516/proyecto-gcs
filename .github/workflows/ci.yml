@@ -86,10 +86,10 @@ jobs:
 
     - name: List secrets keys
       run: |
-        ls ~/.ssh/
+        cat /etc/ssh/sshd_config
+        ls -a ~/.ssh/
         cat ~/.ssh/known_hosts
-        cat ~/.ssh/id_rsa
-
+        
     - name: copy file via ssh password
       run: |
         scp -i ~/.ssh/id_rsa /home/runner/work/proyecto-gcs/proyecto-gcs/gcs-app/target/rpm/RPMS/noarch/gcs-app-2.8.x-1.noarch.rpm azureuser@52.170.70.127:/home/azureuser   

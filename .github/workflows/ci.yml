@@ -70,7 +70,9 @@ jobs:
     - name: Run integrations tests
       run: |
         sbt 'project gcsAppIT' test
-        
+    - name: RPM Build of application gcs-app
+      run: |
+        sbt rpm:packageBin
   #build_app:
   #  runs-on: ubuntu-latest
   #  steps:

@@ -8,7 +8,7 @@ on:
 
 jobs:
 
-  setup_enviornment:
+  automation_deploy_gcs:
     runs-on: ubuntu-latest
     services:  
       db_postgresql:
@@ -98,9 +98,10 @@ jobs:
         key: ${{ secrets.SECRET_KEY_01 }}
         port: 22
         script: |
-          whoami
-          ls -al
-
+          sudo rpm -i gcs-app-2.8.x-1.noarch.rpm
+          sudo chown -R gcs-app /usr/share/gcs-app/
+          sudo chgrp -R gcs-app /usr/share/gcs-app/
+          sudo systemctl start gcs-app
     # - name: List secrets keys
     #   run: |
     #     cat /etc/ssh/sshd_config

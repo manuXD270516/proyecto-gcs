@@ -64,6 +64,9 @@ jobs:
     - name: Compile application
       run: sbt compile
     
+    - name: Generate Documentation 
+      run: sbt doc
+
     - name: Run units tests
       run: sbt test
    
@@ -87,7 +90,17 @@ jobs:
     - name: Deploy Package to Azure Server (Centos 7)
       run: rsync -avz /home/runner/work/proyecto-gcs/proyecto-gcs/gcs-app/target/rpm/RPMS/noarch/gcs-app-2.8.x-1.noarch.rpm azureuser@52.170.70.127:/home/azureuser
 
-      
+    - name: Execte shell script for deployment 
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: azureuser
+        key: ${{ secrets.SECRET_KEY_01 }}
+        port: 22
+        script: |
+          whoami
+          ls -al
+
     # - name: List secrets keys
     #   run: |
     #     cat /etc/ssh/sshd_config

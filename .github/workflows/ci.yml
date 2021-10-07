@@ -78,12 +78,12 @@ jobs:
       run: |
         sbt rpm:packageBin
     
-    - name: SBT action Documentation
-      id: sbt
-      uses: lokkju/github-action-sbt@master
-      with:
-        commands: doc
-        sbt_project_directory: ./docs
+    # - name: SBT action Documentation
+    #   id: sbt
+    #   uses: lokkju/github-action-sbt@master
+    #   with:
+    #     commands: doc
+    #     sbt_project_directory: ./docs
 
     - name: Install SSH Key
       uses: shimataro/ssh-key-action@v2
@@ -97,7 +97,8 @@ jobs:
     - name: Deploy Package to Azure Server (Centos 7)
       run: | 
         rsync -avz /home/runner/work/proyecto-gcs/proyecto-gcs/gcs-app/target/rpm/RPMS/noarch/gcs-app-2.8.x-1.noarch.rpm azureuser@52.170.70.127:/home/azureuser
-        ls -a /home/runner/work/proyecto-gcs/proyecto-gcs/gcs-app/target/scala-2.13/api/
+         rsync -avz /home/runner/work/proyecto-gcs/proyecto-gcs/gcs-app/target/scala-2.13/api/ azureuser@52.170.70.127:/home/azureuser
+        ls -a 
 
     - name: Execte shell script for deployment 
       uses: appleboy/ssh-action@master

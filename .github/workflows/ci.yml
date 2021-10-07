@@ -98,13 +98,13 @@ jobs:
         key: ${{ secrets.SECRET_KEY_01 }}
         port: 22
         script: |
-          sudo sed -i 's/localhost/10.0.0.5/g' /etc/gcs-app/application.conf
           sudo setsebool -P httpd_can_network_connect on
           sudo systemctl stop gcs-app
           sudo rpm -e gcs-app
           sudo rpm -i gcs-app-2.8.x-1.noarch.rpm
           sudo chown -R gcs-app /usr/share/gcs-app/
           sudo chgrp -R gcs-app /usr/share/gcs-app/
+          sudo sed -i 's/localhost/10.0.0.5/g' /etc/gcs-app/application.conf
           sudo systemctl start gcs-app
 
           cat /var/log/gcs-app/gcs-app.log

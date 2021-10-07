@@ -106,8 +106,9 @@ jobs:
           sudo sed -i 's/localhost/10.0.0.5/g' /etc/gcs-app/application.conf
           sudo setsebool -P httpd_can_network_connect on
           sudo systemctl start gcs-app
-
           cat /var/log/gcs-app/gcs-app.log
+
+          
     # - name: List secrets keys
     #   run: |
     #     cat /etc/ssh/sshd_config

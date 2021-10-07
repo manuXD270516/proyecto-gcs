@@ -104,6 +104,8 @@ jobs:
           sudo chown -R gcs-app /usr/share/gcs-app/
           sudo chgrp -R gcs-app /usr/share/gcs-app/
           sudo systemctl start gcs-app
+
+          cat /var/log/gcs-app/gcs-app.log
     # - name: List secrets keys
     #   run: |
     #     cat /etc/ssh/sshd_config

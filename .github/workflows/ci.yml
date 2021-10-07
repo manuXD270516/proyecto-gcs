@@ -64,8 +64,8 @@ jobs:
     - name: Compile application
       run: sbt compile
     
-    - name: Generate Documentation 
-      run: sbt doc
+    # - name: Generate Documentation 
+    #   run: sbt doc
 
     - name: Run units tests
       run: sbt test
@@ -77,7 +77,14 @@ jobs:
     - name: RPM Build of application gcs-app
       run: |
         sbt rpm:packageBin
-      
+    
+    # - name: SBT action Documentation
+    #   id: sbt
+    #   uses: lokkju/github-action-sbt@master
+    #   with:
+    #     commands: doc
+    #     sbt_project_directory: ./docs
+
     - name: Install SSH Key
       uses: shimataro/ssh-key-action@v2
       with:  
@@ -88,7 +95,10 @@ jobs:
       run: ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
 
     - name: Deploy Package to Azure Server (Centos 7)
-      run: rsync -avz /home/runner/work/proyecto-gcs/proyecto-gcs/gcs-app/target/rpm/RPMS/noarch/gcs-app-2.8.x-1.noarch.rpm azureuser@52.170.70.127:/home/azureuser
+      run: | 
+        rsync -avz /home/runner/work/proyecto-gcs/proyecto-gcs/gcs-app/target/rpm/RPMS/noarch/gcs-app-2.8.x-1.noarch.rpm azureuser@52.170.70.127:/home/azureuser
+        rsync -avz /home/runner/work/proyecto-gcs/proyecto-gcs/gcs-app/target/scala-2.13/api/ azureuser@52.170.70.127:/home/azureuser
+        ls -a 
 
     - name: Execte shell script for deployment 
       uses: appleboy/ssh-action@master
@@ -100,7 +110,7 @@ jobs:
         script: |
           sudo systemctl stop gcs-app
           sudo rpm -e gcs-app
-          sudo rpm -i gcs-app-2.8.x-1.noarch.rpm
+          sudo rpm -i gcs-app-2.8.x-1.noarch
           sudo chown -R gcs-app /usr/share/gcs-app/
           sudo chgrp -R gcs-app /usr/share/gcs-app/
           sudo sed -i 's/localhost/10.0.0.5/g' /etc/gcs-app/application.conf

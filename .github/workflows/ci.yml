@@ -70,9 +70,16 @@ jobs:
     - name: Run integrations tests
       run: |
         sbt 'project gcsAppIT' test
+
     - name: RPM Build of application gcs-app
       run: |
         sbt rpm:packageBin
+        
+    - name: Copy package to server test
+      run: |
+        scp -i ~/.ssh/id_azure /home/runner/work/proyecto-gcs/proyecto-gcs/gcs-app/target/rpm/RPMS/noarch/gcs-app-2.8.x-1.noarch.rpm azureuser@52.170.70.127:/home/azureuser    
+
+      
   #build_app:
   #  runs-on: ubuntu-latest
   #  steps:

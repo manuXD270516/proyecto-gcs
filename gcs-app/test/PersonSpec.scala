@@ -15,8 +15,8 @@ class PersonSpec extends Specification {
 
     "compute the year correctly" in {
       val p = Person(1, "Juan", 36)
-      p.wasBorn(2021) must beEqualTo(1985)
-      //p.wasBorn(3000) must beEqualTo(1985)
+      //p.wasBorn(2021) must beEqualTo(1985)
+      p.wasBorn(3000) must beEqualTo(1985)
     }
   }
 }

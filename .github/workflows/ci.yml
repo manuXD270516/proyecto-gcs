@@ -98,6 +98,8 @@ jobs:
         key: ${{ secrets.SECRET_KEY_01 }}
         port: 22
         script: |
+          sudo systemctl stop gcs-app
+          sudo rpm -e gcs-app
           sudo rpm -i gcs-app-2.8.x-1.noarch.rpm
           sudo chown -R gcs-app /usr/share/gcs-app/
           sudo chgrp -R gcs-app /usr/share/gcs-app/
